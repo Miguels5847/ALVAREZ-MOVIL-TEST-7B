@@ -3,7 +3,7 @@ export type Vehiculo = {
     Modelo: string;
     Placa: string;
     NombreDelDueño: string;
-    Año: number;
+    Año: string;
     TipoDeGasolina: string;
 }
 
@@ -12,7 +12,7 @@ export const emptyVehiculo: Vehiculo = {
     Modelo: '',
     Placa: '',
     NombreDelDueño: '',
-    Año: 0,
+    Año: '',
     TipoDeGasolina: ''
 }
 
