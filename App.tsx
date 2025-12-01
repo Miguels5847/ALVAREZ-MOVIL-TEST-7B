@@ -1,31 +1,34 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import { PersonalInfoScreen } from './screens/VehiculoInfoScreen';
-import { totalSteps, useVehiculoForm } from './state/useVehiculeFrom';
+import { useVehiculoForm } from './state/useVehiculeFrom';
 import { VehiculoDetailScreen } from './screens/VehiculoDetailScreen';
 import { SummaryScreen } from './screens/SummaryScreen';
+import { VehiculosListScreen } from './screens/VehiculosListScreen';
 
 export default function App() {
-  const { vehiculo, updateField, step, nextStep, initialStep, restart } = useVehiculoForm();
+  const { vehiculo, vehiculos, updateField, step, nextStep, prevStep, saveVehiculo, restart } = useVehiculoForm();
   const renderScreen = () => {
     if (step === 0) {
       return <PersonalInfoScreen vehiculo={vehiculo} onChange={updateField} onNext={nextStep} />
     }
     if (step === 1) {
-      return <VehiculoDetailScreen vehiculo={vehiculo} onChange={updateField} onNext={nextStep} />
+      return <VehiculoDetailScreen vehiculo={vehiculo} onChange={updateField} onNext={nextStep} onBack={prevStep} />
+    }
+    if (step === 2) {
+      return <SummaryScreen vehiculo={vehiculo} onBack={prevStep} onRegister={saveVehiculo} />
     }
 
-
-    return <SummaryScreen vehiculo={vehiculo} onClick={restart} />
+    return <VehiculosListScreen vehiculos={vehiculos} onRegisterAnother={restart} />
   }
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
       <View style={styles.card}>
         <Text style={styles.title}>
-          Registro de un Vehiculo
+          {step < 3 ? 'Registro de un Vehiculo' : 'Vehículos Registrados'}
         </Text>
-        <Text style={styles.steps}>Paso {step + 1} de {totalSteps}</Text>
+        {step < 3 && <Text style={styles.steps}>Paso {step + 1} de 3</Text>}
         {renderScreen()}
       </View>
     </SafeAreaView>

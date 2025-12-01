@@ -11,6 +11,8 @@ type PersonalInfoScreenProps = {
 }
 
 export const PersonalInfoScreen = ({ vehiculo, onChange, onNext, onBack }: PersonalInfoScreenProps) => {
+    const isValid = vehiculo.Marca.trim() !== '' && vehiculo.Modelo.trim() !== '';
+
     return (
         <View style={styles.container}>
             <Text>Datos del Vehiculo</Text>
@@ -27,7 +29,11 @@ export const PersonalInfoScreen = ({ vehiculo, onChange, onNext, onBack }: Perso
                 value={vehiculo.Modelo}
                 onChangeText={value => onChange('Modelo', value)}
             />
-            <FromButton label="Siguiente" onPress={onNext} />
+            <FromButton
+                label="Siguiente"
+                onPress={onNext}
+                disabled={!isValid}
+            />
             {onBack && <FromButton label="Atrás" onPress={onBack} />}
         </View>
     )

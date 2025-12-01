@@ -8,12 +8,19 @@ type VehiculoDetailScreenProps = {
     vehiculo: Vehiculo,
     onChange: (field: keyof Vehiculo, value: string) => void
     onNext: () => void
+    onBack?: () => void
 }
 
-export const VehiculoDetailScreen = ({ vehiculo, onChange, onNext }: VehiculoDetailScreenProps) => {
+export const VehiculoDetailScreen = ({ vehiculo, onChange, onNext, onBack }: VehiculoDetailScreenProps) => {
+    const isValid =
+        vehiculo.Placa.trim() !== '' &&
+        vehiculo.NombreDelDueño.trim() !== '' &&
+        vehiculo.Año.trim() !== '' &&
+        vehiculo.TipoDeGasolina.trim() !== '';
+
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Contacto</Text>
+            <Text style={styles.title}>Detalle del Vehiculo</Text>
             <FormInput
                 label="Placa"
                 placeholder="ABC-1234"
@@ -38,7 +45,12 @@ export const VehiculoDetailScreen = ({ vehiculo, onChange, onNext }: VehiculoDet
                 value={vehiculo.TipoDeGasolina}
                 onChangeText={value => onChange('TipoDeGasolina', value)}
             />
-            <FromButton label="Siguiente" onPress={onNext} />
+            <FromButton
+                label="Siguiente"
+                onPress={onNext}
+                disabled={!isValid}
+            />
+            {onBack && <FromButton label="Regresar" onPress={onBack} />}
         </View>
     )
 }

@@ -6,9 +6,13 @@ import type { TouchableOpacityProps } from 'react-native'
 type FromButtonProps = TouchableOpacityProps & {
     label: string
 }
-export const FromButton = ({ label, style, ...props }: FromButtonProps) => {
+export const FromButton = ({ label, style, disabled, ...props }: FromButtonProps) => {
     return (
-        <TouchableOpacity {...props} style={[style, styles.button]}>
+        <TouchableOpacity
+            {...props}
+            disabled={disabled}
+            style={[style, styles.button, disabled && styles.buttonDisabled]}
+        >
             <Text style={styles.text}>{label}</Text>
         </TouchableOpacity>
     )
@@ -22,6 +26,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 8,
         marginTop: 8
+    },
+    buttonDisabled: {
+        backgroundColor: '#9ca3af',
+        opacity: 0.6
     },
     text: {
         color: 'white',

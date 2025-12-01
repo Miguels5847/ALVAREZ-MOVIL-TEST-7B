@@ -5,21 +5,24 @@ import { FromButton } from '../components/FromButton'
 
 type SummaryScreenProps = {
     vehiculo: Vehiculo
-    onClick?: () => void
+    onBack?: () => void
+    onRegister?: () => void
 }
 
-export const SummaryScreen = ({ vehiculo, onClick }: SummaryScreenProps) => {
+export const SummaryScreen = ({ vehiculo, onBack, onRegister }: SummaryScreenProps) => {
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Resumen</Text>
+            <Text style={styles.title}>Resumen de Registro</Text>
             <View style={styles.card}>
-                <Text style={styles.row}>Nombre: {vehiculo.NombreDelDueño}</Text>
+                <Text style={styles.row}>Marca: {vehiculo.Marca}</Text>
+                <Text style={styles.row}>Modelo: {vehiculo.Modelo}</Text>
                 <Text style={styles.row}>Placa: {vehiculo.Placa}</Text>
+                <Text style={styles.row}>Nombre del Dueño: {vehiculo.NombreDelDueño}</Text>
                 <Text style={styles.row}>Año: {vehiculo.Año}</Text>
                 <Text style={styles.row}>Tipo de Gasolina: {vehiculo.TipoDeGasolina}</Text>
             </View>
-            <FromButton label="Volver a inicio" onPress={onClick} />
-
+            <FromButton label="Registrar" onPress={onRegister} />
+            {onBack && <FromButton label="Regresar" onPress={onBack} />}
         </View>
     )
 }
