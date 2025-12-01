@@ -21,8 +21,10 @@ export const SummaryScreen = ({ vehiculo, onBack, onRegister }: SummaryScreenPro
                 <Text style={styles.row}>Año: {vehiculo.Año}</Text>
                 <Text style={styles.row}>Tipo de Gasolina: {vehiculo.TipoDeGasolina}</Text>
             </View>
-            <FromButton label="Registrar" onPress={onRegister} />
-            {onBack && <FromButton label="Regresar" onPress={onBack} />}
+            <View style={styles.buttonRow}>
+                {onBack && <FromButton label="Regresar" onPress={onBack} style={styles.button} />}
+                <FromButton label="Registrar" onPress={onRegister} style={styles.button} />
+            </View>
         </View>
     )
 }
@@ -47,5 +49,13 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginBottom: 6,
         color: 'black',
+    },
+    buttonRow: {
+        flexDirection: 'row',
+        gap: 12,
+        marginTop: 8,
+    },
+    button: {
+        flex: 1,
     }
 })

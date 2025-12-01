@@ -45,12 +45,15 @@ export const VehiculoDetailScreen = ({ vehiculo, onChange, onNext, onBack }: Veh
                 value={vehiculo.TipoDeGasolina}
                 onChangeText={value => onChange('TipoDeGasolina', value)}
             />
-            <FromButton
-                label="Siguiente"
-                onPress={onNext}
-                disabled={!isValid}
-            />
-            {onBack && <FromButton label="Regresar" onPress={onBack} />}
+            <View style={styles.buttonRow}>
+                {onBack && <FromButton label="Regresar" onPress={onBack} style={styles.button} />}
+                <FromButton
+                    label="Siguiente"
+                    onPress={onNext}
+                    disabled={!isValid}
+                    style={styles.button}
+                />
+            </View>
         </View>
     )
 }
@@ -63,5 +66,13 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         marginBottom: 16,
     },
+    buttonRow: {
+        flexDirection: 'row',
+        gap: 12,
+        marginTop: 8,
+    },
+    button: {
+        flex: 1,
+    }
 })
 
